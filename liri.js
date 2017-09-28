@@ -1,26 +1,30 @@
-let twitter = require('twitter');
+let Twitter = require('twitter');
 let spotify = require('spotify');
 let userInput = process.argv[2];
 let keys = require('./keys.js')
 
 function myTweets() {
-	// client.get('statuses/user_timeline', // URL for my twitter account w/ API goes here)
- //  .then(function (tweet) {
- //    console.log(tweet);
- //  })
- //  .catch(function (error) {
- //    throw error;
- //  })
+	let params = {
+		'screen_name': 'NoahPerlmutter',
+		'count': 20,
+		'exclude_replies': true,
+	};
+	let client = new Twitter({
+		'consumer_key': keys.consumer_key,
+		'consumer_secret': keys.consumer_secret,
+		'access_token_key': keys.access_token_key,
+		'access_token_secret': keys.access_token_secret,
+	});
 
-// twttr.widgets.createTimeline(
-//   {
-//     sourceType: "list",
-//     ownerScreenName: "TwitterDev",
-//     slug: "national-parks"
-//   },
-//  console.log(this.sourceType);
-// );
+	// for(i=0; i < params.count; i++) {}
 
+	client.get('statuses/user_timeline', params, function(error, tweets, response) {
+	  if (!error) {
+	    console.log(tweets[0].text);
+	  } else {
+	  	console.log(error);
+	  }
+	});
 }
 
 
