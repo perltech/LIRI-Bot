@@ -16,14 +16,16 @@ function myTweets() {
 		'access_token_secret': keys.access_token_secret,
 	});
 
-	// for(i=0; i < params.count; i++) {}
+	
 
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
-	  if (!error) {
-	    console.log(tweets[0].text);
-	  } else {
-	  	console.log(error);
-	  }
+		for(i=0; i < params.count; i++) {
+			if (!error) {
+			console.log(tweets[i].text);
+			} else {
+			console.log(error);
+			}
+		}  
 	});
 }
 
