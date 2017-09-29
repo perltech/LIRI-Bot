@@ -7,7 +7,7 @@ function myTweets() {
 	let params = {
 		'screen_name': 'NoahPerlmutter',
 		'count': 20,
-		'exclude_replies': true,
+		//'exclude_replies': true,
 	};
 	let client = new Twitter({
 		'consumer_key': keys.consumer_key,
