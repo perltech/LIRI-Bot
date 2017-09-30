@@ -28,6 +28,7 @@ function myTweets() {
 			}
 		}  
 	});
+
 }
 
 function spotifyThisSong() {
@@ -35,7 +36,7 @@ function spotifyThisSong() {
 		id: '0e1c89782ee949b99cee411af77644fd',
 		secret: '342b33f8f9284a428c7008d1b260646b'
 		});
-													// assign query to variable that targets user input
+
 	spotify.search({ type: 'track', query: searchArg }, function(err, data) {
 		if (err) {
 			return console.log('Error occurred: ' + err);
@@ -51,10 +52,21 @@ function spotifyThisSong() {
 
 			let url = data.tracks.items[0].external_urls.spotify;	
 			console.log(`External Track URL: ${url}`);
-			
-			
-			//JSON.stringify(data.tracks.items[0].album.artists[0].external_urls)
 	});
+
+}
+
+function movieThis() {
+	var request = require('request');
+
+	request
+	.get('http://www.omdbapi.com/?t=' + searchArg + '&apikey=40e9cece')
+	.on('response', function(response) {
+		console.log(response.statusCode) // 200
+		console.log(response.headers['content-type']) // 'image/png'
+		console.log();
+	});
+
 }
 
 
@@ -68,7 +80,7 @@ switch(operation) {
 		break;
 
 	case 'movie-this':
-		// function goes here
+		movieThis();
 		break;
 
 	case 'do-what-it-says':
