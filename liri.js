@@ -1,6 +1,7 @@
 let Twitter = require('twitter');
-let spotify = require('spotify');
-let userInput = process.argv[2];
+let Spotify = require('node-spotify-api');
+let operation = process.argv[2];
+let searchArg = process.argv[3];
 let keys = require('./keys.js')
 
 function myTweets() {
@@ -29,16 +30,30 @@ function myTweets() {
 	});
 }
 
+function spotifyThisSong() {
+	var spotify = new Spotify({
+		id: '0e1c89782ee949b99cee411af77644fd',
+		secret: '342b33f8f9284a428c7008d1b260646b'
+		});
+													// assign query to variable that targets user input
+	spotify.search({ type: 'track', query: searchArg }, function(err, data) {
+		if (err) {
+			return console.log('Error occurred: ' + err);
+		}
+			let url = JSON.stringify(data.tracks.items[0].external_urls.spotify);
+			console.log(`External Track URL:${url}`); 
+			//JSON.stringify(data.tracks.items[0].album.artists[0].external_urls)
+	});
+}
 
 
-
-switch(userInput) {
+switch(operation) {
 	case 'my-tweets':
 		myTweets();
 		break;
 
 	case 'spotify-this-song':
-		// function goes here
+		spotifyThisSong();
 		break;
 
 	case 'movie-this':
