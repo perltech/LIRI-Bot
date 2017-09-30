@@ -40,8 +40,19 @@ function spotifyThisSong() {
 		if (err) {
 			return console.log('Error occurred: ' + err);
 		}
-			let url = JSON.stringify(data.tracks.items[0].external_urls.spotify);
-			console.log(`External Track URL:${url}`); 
+			let songName = data.tracks.items[0].name;
+			console.log(`Song Name: ${songName}`);
+
+			let bandName = data.tracks.items[0].album.artists[0].name;
+			console.log(`Band Name: ${bandName}`);
+
+			let albumName = data.tracks.items[0].album.name;
+			console.log(`Album Name: ${albumName}`);
+
+			let url = data.tracks.items[0].external_urls.spotify;	
+			console.log(`External Track URL: ${url}`);
+			
+			
 			//JSON.stringify(data.tracks.items[0].album.artists[0].external_urls)
 	});
 }
