@@ -1,8 +1,13 @@
 let Twitter = require('twitter');
 let Spotify = require('node-spotify-api');
+let request = require('request');
+let fs = require('file-system');
 let operation = process.argv[2];
 let searchArg = process.argv[3];
 let keys = require('./keys.js')
+
+
+// MOVE Spotify keys to secret keys file
 
 function myTweets() {
 	let params = {
@@ -56,18 +61,62 @@ function spotifyThisSong() {
 
 }
 
+// Reduce the request into a single function to be called twice with either the search argument or strictly "mr. nobody"
 function movieThis() {
-	var request = require('request');
-
-	request
-	.get('http://www.omdbapi.com/?t=' + searchArg + '&apikey=40e9cece')
-	.on('response', function(response) {
-		console.log(response.statusCode) // 200
-		console.log(response.headers['content-type']) // 'image/png'
-		console.log();
-	});
+	if(searchArg){
+		request('http://www.omdbapi.com/?t=' + searchArg + '&apikey=40e9cece', function (error, response, body) {
+			var json = JSON.parse(body);
+			//console.log('error:', error);
+			//console.log('statusCode:', response && response.statusCode);
+			//console.log('body:', JSON.parse(body));
+			console.log(`Title: ${json.Title}`);
+			console.log(`Year Released: ${json.Year}`);
+			console.log(`IMDB Rating (because that's as legit as it gets and no spammers): ${json.Ratings[0].Value}`);
+			console.log(`Rotten Tomatoes Rating (the legit one): ${json.Ratings[1].Value}`);
+			console.log(`Country of Release: ${json.Country}`);
+			console.log(`Language: ${json.Language}`);
+			console.log(`Plot Summary: ${json.Plot}`);
+			console.log(`Actors: ${json.Actors}`);
+		});
+	} else {
+		request('http://www.omdbapi.com/?t=Mr.+Nobody&apikey=40e9cece', function (error, response, body) {
+				var json = JSON.parse(body);
+				//console.log('error:', error);
+				//console.log('statusCode:', response && response.statusCode);
+				//console.log('body:', JSON.parse(body));
+				console.log(`Title: ${json.Title}`);
+				console.log(`Year Released: ${json.Year}`);
+				console.log(`IMDB Rating (because that's as legit as it gets and no spammers): ${json.Ratings[0].Value}`);
+				console.log(`Rotten Tomatoes Rating (the legit one): ${json.Ratings[1].Value}`);
+				console.log(`Country of Release: ${json.Country}`);
+				console.log(`Language: ${json.Language}`);
+				console.log(`Plot Summary: ${json.Plot}`);
+				console.log(`Actors: ${json.Actors}`);
+		});
+	}
 
 }
+
+function doWhatItSays() {
+	fs.readFile("random.txt", "utf8", function(error, data) {
+
+	  if (error) {
+	    return console.log(error);
+	  }
+
+	  //console.log(data);
+	  let dataArr = data.split(",");
+	 // console.log(dataArr);
+
+	  operation = dataArr[0];
+	  searchArg = dataArr[1];
+
+	  //console.log(operation);
+	  //console.log(searchArg);
+	  spotifyThisSong();
+	});
+}
+
 
 
 switch(operation) {
@@ -84,7 +133,7 @@ switch(operation) {
 		break;
 
 	case 'do-what-it-says':
-		// function goes here
+		doWhatItSays();
 		break;
 }
 
