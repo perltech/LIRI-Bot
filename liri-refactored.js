@@ -16,10 +16,10 @@ function myTweets() {
 		//'exclude_replies': true,
 	};
 	let client = new Twitter({
-		'consumer_key': keys.consumer_key,
-		'consumer_secret': keys.consumer_secret,
-		'access_token_key': keys.access_token_key,
-		'access_token_secret': keys.access_token_secret,
+		'consumer_key': keys.twitterKeys.consumer_key,
+		'consumer_secret': keys.twitterKeys.consumer_secret,
+		'access_token_key': keys.twitterKeys.access_token_key,
+		'access_token_secret': keys.twitterKeys.access_token_secret,
 	});
 
 	
@@ -38,8 +38,8 @@ function myTweets() {
 
 function spotifyThisSong() {
 	var spotify = new Spotify({
-		id: '0e1c89782ee949b99cee411af77644fd',
-		secret: '342b33f8f9284a428c7008d1b260646b'
+		id: keys.spotifyKeys.id,
+		secret: keys.spotifyKeys.secret
 		});
 
 	spotify.search({ type: 'track', query: searchArg }, function(err, data) {
@@ -97,7 +97,7 @@ function movieThis() {
 				//console.log('error:', error);
 				//console.log('statusCode:', response && response.statusCode);
 				//console.log('body:', JSON.parse(body));
-				
+
 				// console.log(`Title: ${json.Title}`);
 				// console.log(`Year Released: ${json.Year}`);
 				// console.log(`IMDB Rating (because that's as legit as it gets and no spammers): ${json.Ratings[0].Value}`);
