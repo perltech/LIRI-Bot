@@ -135,6 +135,9 @@ switch(operation) {
 	case 'do-what-it-says':
 		doWhatItSays();
 		break;
+
+	default:
+		'Please enter one of the following:\nmy-tweets\nspotify-this-song\nmovie-this\ndo-what-it-says'
 }
 
 
