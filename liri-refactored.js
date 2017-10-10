@@ -42,22 +42,43 @@ function spotifyThisSong() {
 		secret: keys.spotifyKeys.secret
 		});
 
-	spotify.search({ type: 'track', query: searchArg }, function(err, data) {
-		if (err) {
-			return console.log('Error occurred: ' + err);
-		}
-			let songName = data.tracks.items[0].name;
-			console.log(`Song Name: ${songName}`);
+	if(searchArg) {
+		spotify.search({ type: 'track', query: searchArg }, function(err, data) {
+			if (err) {
+				return console.log('Error occurred: ' + err);
+			}
+				let songName = data.tracks.items[0].name;
+				console.log(`Song Name: ${songName}`);
 
-			let bandName = data.tracks.items[0].album.artists[0].name;
-			console.log(`Band Name: ${bandName}`);
+				let bandName = data.tracks.items[0].album.artists[0].name;
+				console.log(`Band Name: ${bandName}`);
 
-			let albumName = data.tracks.items[0].album.name;
-			console.log(`Album Name: ${albumName}`);
+				let albumName = data.tracks.items[0].album.name;
+				console.log(`Album Name: ${albumName}`);
 
-			let url = data.tracks.items[0].external_urls.spotify;	
-			console.log(`External Track URL: ${url}`);
-	});
+				let url = data.tracks.items[0].external_urls.spotify;	
+				console.log(`External Track URL: ${url}`);
+			});
+	} else {
+		spotify.search({ type: 'track', query: 'The Sign Ace Base' }, function(err, data) {
+			if (err) {
+				return console.log('Error occurred: ' + err);
+			}
+				let songName = data.tracks.items[0].name;
+				console.log(`Song Name: ${songName}`);
+
+				let bandName = data.tracks.items[0].album.artists[0].name;
+				console.log(`Band Name: ${bandName}`);
+
+				let albumName = data.tracks.items[0].album.name;
+				console.log(`Album Name: ${albumName}`);
+
+				let url = data.tracks.items[0].external_urls.spotify;	
+				console.log(`External Track URL: ${url}`);
+			});
+	}
+
+
 
 }
 
